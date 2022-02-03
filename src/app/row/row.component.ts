@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Row } from '../models/sudoku.types';
+import { Component, Input } from '@angular/core';
+
+import { Coordinates, Row, zeroToEight } from '../models/sudoku.types';
 
 @Component({
   selector: 'app-row',
@@ -7,6 +8,9 @@ import { Row } from '../models/sudoku.types';
     <app-cell
       *ngFor="let cell of row; let i = index"
       [cell]="cell"
+      [rowNo]="rowNo"
+      [colNo]="$any(i)"
+      [currentlySelected]="currentlySelected"
       class="cell"
       [class.left-thick-line]="i === 0 || i === 3 || i === 6"
       [class.right-thick-line]="i === 8"
@@ -32,10 +36,10 @@ import { Row } from '../models/sudoku.types';
     `,
   ],
 })
-export class RowComponent implements OnInit {
+export class RowComponent {
   @Input() row: Row = [null, null, null, null, null, null, null, null, null];
 
-  constructor() {}
+  @Input() rowNo: zeroToEight = 0;
 
-  ngOnInit(): void {}
+  @Input() currentlySelected: Coordinates | null = { colNo: null, rowNo: null };
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { Sudoku } from './models/sudoku.types';
+import { SudokuService } from './sudoku.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,8 @@ import { Sudoku } from './models/sudoku.types';
     <app-row
       *ngFor="let row of sudoku; let i = index"
       [row]="row"
+      [rowNo]="$any(i)"
+      [currentlySelected]="currentlySelected$ | async"
       class="row"
       [class.top-thick-line]="i === 0 || i === 3 || i === 6"
       [class.bottom-thick-line]="i === 8"
@@ -43,4 +47,8 @@ export class AppComponent {
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
   ];
+
+  currentlySelected$ = this._sudokuService.currentlySelected$;
+
+  constructor(private _sudokuService: SudokuService) {}
 }
