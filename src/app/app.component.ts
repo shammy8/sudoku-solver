@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { Sudoku } from './models/sudoku.types';
 import { SudokuService } from './sudoku.service';
@@ -34,6 +34,7 @@ import { SudokuService } from './sudoku.service';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   sudoku: Sudoku = [

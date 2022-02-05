@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Coordinates, Row, zeroToEight } from '../models/sudoku.types';
 
@@ -35,6 +35,7 @@ import { Coordinates, Row, zeroToEight } from '../models/sudoku.types';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RowComponent {
   @Input() row: Row = [null, null, null, null, null, null, null, null, null];

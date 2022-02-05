@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   HostBinding,
   HostListener,
@@ -23,6 +24,7 @@ import { SudokuService } from '../sudoku.service';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CellComponent implements OnChanges {
   @Input() cell: Cell = null;
