@@ -22,12 +22,12 @@ import { SudokuService } from '../sudoku.service';
     `
       :host {
         /* display: inline-block; */
-      }
-      :host.highlight {
-        background-color: lightblue;
-      }
-      :host.light-gray-highlight {
-        background-color: #f0f0f0;
+        &.blue-highlight {
+          background-color: lightblue;
+        }
+        &.light-gray-highlight {
+          background-color: #f0f0f0;
+        }
       }
     `,
   ],
@@ -52,8 +52,8 @@ export class CellComponent implements OnChanges {
     });
   }
 
-  @HostBinding('class.highlight')
-  highlight = false;
+  @HostBinding('class.blue-highlight')
+  blueHighlight = false;
 
   @HostBinding('class.light-gray-highlight')
   lightGrayHighlight = false;
@@ -66,16 +66,16 @@ export class CellComponent implements OnChanges {
       currentlySelected.coordinates.rowNo === this.rowNo &&
       currentlySelected.coordinates.colNo === this.colNo
     ) {
-      this.highlight = true;
+      this.blueHighlight = true;
       this.lightGrayHighlight = false;
     } else if (
       currentlySelected.coordinates.rowNo === this.rowNo ||
       currentlySelected.coordinates.colNo === this.colNo
     ) {
-      this.highlight = false;
+      this.blueHighlight = false;
       this.lightGrayHighlight = true;
     } else {
-      this.highlight = false;
+      this.blueHighlight = false;
       this.lightGrayHighlight = false;
     }
   }
