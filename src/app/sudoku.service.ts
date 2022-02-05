@@ -11,11 +11,19 @@ export class SudokuService {
   currentlySelected$: Observable<CurrentlySelectedCell> = of({
     number: null,
     coordinates: { colNo: null, rowNo: null },
+    subGridCoordinates: {
+      rowNo: null,
+      colNo: null,
+    },
   });
 
   private _currentlySelected$ = new BehaviorSubject<CurrentlySelectedCell>({
     number: null,
     coordinates: { colNo: null, rowNo: null },
+    subGridCoordinates: {
+      rowNo: null,
+      colNo: null,
+    },
   });
 
   constructor() {

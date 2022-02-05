@@ -49,5 +49,9 @@ export class RowComponent {
   @Input() currentlySelected: CurrentlySelectedCell | null = {
     number: null,
     coordinates: { colNo: null, rowNo: null },
+    subGridCoordinates: {
+      rowNo: null,
+      colNo: null,
+    },
   };
 }
