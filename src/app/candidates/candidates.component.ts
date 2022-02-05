@@ -1,10 +1,19 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
-import { Candidates } from '../models/sudoku.types';
+import { Candidates, CurrentlySelectedCell } from '../models/sudoku.types';
 
 @Component({
   selector: 'app-candidates',
-  template: `<div *ngFor="let candidate of candidates | keyvalue">
+  template: `<div
+    *ngFor="let candidate of candidates | keyvalue"
+    [class.bold]="candidate.key === currentlySelectedNumberAsString"
+  >
     {{ candidate.value === true ? candidate.key : '' }}
   </div>`,
   styles: [
@@ -20,11 +29,17 @@ import { Candidates } from '../models/sudoku.types';
         height: 100%;
         color: gray;
       }
+      .bold {
+        font-weight: bolder;
+        color: black;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CandidatesComponent {
+export class CandidatesComponent implements OnChanges {
+  currentlySelectedNumberAsString: string | null = null;
+
   @Input() candidates: Candidates = {
     1: false,
     2: false,
@@ -36,4 +51,30 @@ export class CandidatesComponent {
     8: false,
     9: false,
   };
+
+  @Input() currentlySelected: CurrentlySelectedCell | null = {
+    number: null,
+    coordinates: { colNo: null, rowNo: null },
+    subGridCoordinates: {
+      rowNo: null,
+      colNo: null,
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const currentlySelected: CurrentlySelectedCell =
+      changes['currentlySelected']?.currentValue;
+    if (currentlySelected) {
+      this.setCurrentlySelectedNumberAsString(currentlySelected);
+    }
+  }
+
+  private setCurrentlySelectedNumberAsString(
+    currentlySelected: CurrentlySelectedCell
+  ) {
+    this.currentlySelectedNumberAsString =
+      typeof currentlySelected.number === 'number'
+        ? currentlySelected.number.toString()
+        : null;
+  }
 }

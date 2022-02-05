@@ -24,7 +24,10 @@ import { SudokuService } from '../sudoku.service';
       {{ cell }}
     </ng-container>
     <ng-template #candidates
-      ><app-candidates [candidates]="$any(cell)"></app-candidates
+      ><app-candidates
+        [candidates]="$any(cell)"
+        [currentlySelected]="currentlySelected"
+      ></app-candidates
     ></ng-template>
   `,
   styles: [
