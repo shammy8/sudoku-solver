@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Coordinates, Row, zeroToEight } from '../models/sudoku.types';
+import {
+  CurrentlySelectedCell,
+  Row,
+  zeroToEight,
+} from '../models/sudoku.types';
 
 @Component({
   selector: 'app-row',
@@ -42,5 +46,8 @@ export class RowComponent {
 
   @Input() rowNo: zeroToEight = 0;
 
-  @Input() currentlySelected: Coordinates | null = { colNo: null, rowNo: null };
+  @Input() currentlySelected: CurrentlySelectedCell | null = {
+    number: null,
+    coordinates: { colNo: null, rowNo: null },
+  };
 }

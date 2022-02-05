@@ -8,7 +8,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { Cell, Coordinates, zeroToEight } from '../models/sudoku.types';
+import {
+  Cell,
+  CurrentlySelectedCell,
+  zeroToEight,
+} from '../models/sudoku.types';
 import { SudokuService } from '../sudoku.service';
 
 @Component({
@@ -20,7 +24,10 @@ import { SudokuService } from '../sudoku.service';
         /* display: inline-block; */
       }
       :host.highlight {
-        background-color: lightgray;
+        background-color: lightblue;
+      }
+      :host.light-gray-highlight {
+        background-color: #f0f0f0;
       }
     `,
   ],
@@ -33,29 +40,43 @@ export class CellComponent implements OnChanges {
 
   @Input() colNo: zeroToEight = 0;
 
-  @Input() currentlySelected: Coordinates | null = { colNo: null, rowNo: null };
+  @Input() currentlySelected: CurrentlySelectedCell | null = {
+    number: null,
+    coordinates: { colNo: null, rowNo: null },
+  };
 
   @HostListener('click') onClick() {
-    this.sudokuService.selectCoordinates({
-      rowNo: this.rowNo,
-      colNo: this.colNo,
+    this.sudokuService.onCellSelect({
+      number: this.cell,
+      coordinates: { rowNo: this.rowNo, colNo: this.colNo },
     });
   }
 
   @HostBinding('class.highlight')
   highlight = false;
 
+  @HostBinding('class.light-gray-highlight')
+  lightGrayHighlight = false;
+
   ngOnChanges(changes: SimpleChanges) {
-    const currentlySelected: Coordinates =
+    const currentlySelected: CurrentlySelectedCell =
       changes['currentlySelected'].currentValue;
 
     if (
-      currentlySelected.rowNo === this.rowNo &&
-      currentlySelected.colNo === this.colNo
+      currentlySelected.coordinates.rowNo === this.rowNo &&
+      currentlySelected.coordinates.colNo === this.colNo
     ) {
       this.highlight = true;
+      this.lightGrayHighlight = false;
+    } else if (
+      currentlySelected.coordinates.rowNo === this.rowNo ||
+      currentlySelected.coordinates.colNo === this.colNo
+    ) {
+      this.highlight = false;
+      this.lightGrayHighlight = true;
     } else {
       this.highlight = false;
+      this.lightGrayHighlight = false;
     }
   }
 
