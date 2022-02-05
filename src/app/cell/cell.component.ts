@@ -11,9 +11,7 @@ import {
 
 import {
   Cell,
-  Coordinates,
   CurrentlySelectedCell,
-  SubGridCoordinates,
   zeroToEight,
   zeroToTwo,
 } from '../models/sudoku.types';
@@ -30,7 +28,7 @@ import { SudokuService } from '../sudoku.service';
           background-color: lightblue;
         }
         &.light-gray-highlight {
-          background-color: #f0f0f0;
+          background-color: #e8e8e8;
         }
       }
     `,
@@ -75,7 +73,11 @@ export class CellComponent implements OnChanges, OnInit {
   lightGrayHighlight = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    this._handleHighlight(changes);
+    const currentlySelected: CurrentlySelectedCell =
+      changes['currentlySelected']?.currentValue;
+    if (currentlySelected) {
+      this.handleHighlight(currentlySelected);
+    }
   }
 
   ngOnInit() {
@@ -84,11 +86,10 @@ export class CellComponent implements OnChanges, OnInit {
 
   constructor(private sudokuService: SudokuService) {}
 
-  private _handleHighlight(changes: SimpleChanges) {
-    const selectedCoordinates: Coordinates =
-      changes['currentlySelected'].currentValue.coordinates;
-    const selectedSubGridCoordinates: SubGridCoordinates =
-      changes['currentlySelected'].currentValue.subGridCoordinates;
+  private handleHighlight(currentlySelected: CurrentlySelectedCell) {
+    const selectedCoordinates = currentlySelected.coordinates;
+    const selectedSubGridCoordinates = currentlySelected.subGridCoordinates;
+    const selectedNumber = currentlySelected.number;
 
     const isSameAsSelected =
       selectedCoordinates.rowNo === this.rowNo &&
@@ -103,7 +104,10 @@ export class CellComponent implements OnChanges, OnInit {
     if (isSameAsSelected) {
       this.blueHighlight = true;
       this.lightGrayHighlight = false;
-    } else if (isInSameRowColSubGridAsSelected) {
+    } else if (
+      isInSameRowColSubGridAsSelected ||
+      (typeof selectedNumber === 'number' && selectedNumber === this.cell)
+    ) {
       this.blueHighlight = false;
       this.lightGrayHighlight = true;
     } else {

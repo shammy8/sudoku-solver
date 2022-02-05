@@ -15,7 +15,7 @@ export type zeroToTwo = 0 | 1 | 2;
 export interface CurrentlySelectedCell {
   number: Cell;
   coordinates: Coordinates;
-  subGridCoordinates:  SubGridCoordinates
+  subGridCoordinates: SubGridCoordinates;
 }
 
 export interface Coordinates {

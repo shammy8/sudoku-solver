@@ -38,15 +38,15 @@ import { SudokuService } from './sudoku.service';
 })
 export class AppComponent {
   sudoku: Sudoku = [
-    [1, 2, 3, [1, 1], null, 3, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [2, 2, 3, 4, 5, 6, 7, 8, 9],
+    [null , null, null, null, 2, 7, null, null, null],
+    [null, null, null, 5, 9, 4, null, 2, 7],
+    [null, null, null, null, null, null, 6, null, null],
+    [8, null, null, 1, null, 5, 4, null, null],
+    [null, null, null, null, null, 8, null, 5, 3],
+    [null, null, 4, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, 6, null],
+    [null, 9, null, null, 3, null, 1, null, null],
+    [5, 1, null, null, null, 2, null, null, null],
   ];
 
   currentlySelected$ = this._sudokuService.currentlySelected$;
