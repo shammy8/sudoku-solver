@@ -4,7 +4,17 @@ export type Row = [Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell];
 
 export type Cell = oneToNine | Candidates | null;
 
-export type Candidates = oneToNine[];
+export interface Candidates {
+  1: boolean;
+  2: boolean;
+  3: boolean;
+  4: boolean;
+  5: boolean;
+  6: boolean;
+  7: boolean;
+  8: boolean;
+  9: boolean;
+}
 
 export type oneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 

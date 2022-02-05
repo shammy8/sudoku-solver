@@ -38,7 +38,27 @@ import { SudokuService } from './sudoku.service';
 })
 export class AppComponent {
   sudoku: Sudoku = [
-    [null , null, null, null, 2, 7, null, null, null],
+    [
+      {
+        1: true,
+        2: true,
+        3: true,
+        4: false,
+        5: true,
+        6: false,
+        7: true,
+        8: false,
+        9: true,
+      },
+      null,
+      null,
+      null,
+      2,
+      7,
+      null,
+      null,
+      null,
+    ],
     [null, null, null, 5, 9, 4, null, 2, 7],
     [null, null, null, null, null, null, 6, null, null],
     [8, null, null, 1, null, 5, 4, null, null],

@@ -19,7 +19,14 @@ import { SudokuService } from '../sudoku.service';
 
 @Component({
   selector: 'app-cell',
-  template: ` {{ cell }} `,
+  template: `
+    <ng-container *ngIf="!(cell | isCandidates); else candidates">
+      {{ cell }}
+    </ng-container>
+    <ng-template #candidates
+      ><app-candidates [candidates]="$any(cell)"></app-candidates
+    ></ng-template>
+  `,
   styles: [
     `
       :host {
