@@ -97,8 +97,8 @@ export class CellComponent implements OnChanges, OnInit {
     const isInSameRowColSubGridAsSelected =
       selectedCoordinates.rowNo === this.rowNo ||
       selectedCoordinates.colNo === this.colNo ||
-      selectedSubGridCoordinates.rowNo === this.subGridRowNo ||
-      selectedSubGridCoordinates.colNo === this.subGridColNo;
+      (selectedSubGridCoordinates.rowNo === this.subGridRowNo &&
+        selectedSubGridCoordinates.colNo === this.subGridColNo);
 
     if (isSameAsSelected) {
       this.blueHighlight = true;
